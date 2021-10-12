@@ -13,6 +13,7 @@ module.exports = {
             'chapter1/scoped',
             'chapter1/string',
             'chapter1/function',
+            'chapter1/object',
           ],
         },
       ],

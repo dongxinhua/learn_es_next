@@ -13,10 +13,11 @@ let person = {};
 person[firstName] = 'dong';
 console.log(person[firstName]);  // 'dong'
 ```
-
-​		由于Symbol是原始值，因此调用 new Symbol() 会导致程序抛出错误。
-
-​		Symbol 函数接受一个可选参数，可以添加一段文本描述即将创建的Symbol。这段描述不可用于属性访问，但是建议在每次创建 Symbol 时都添加这样一段描述，以便于阅读代码和调试 Symbol 程序。
+::: warning 警告
+由于Symbol是原始值，因此调用 new Symbol() 会导致程序抛出错误。
+:::
+​		
+​   Symbol 函数接受一个可选参数，可以添加一段文本描述即将创建的Symbol。这段描述不可用于属性访问，但是建议在每次创建 Symbol 时都添加这样一段描述，以便于阅读代码和调试 Symbol 程序。
 
 ```js
 let firstName = Symbol('first name');
@@ -31,7 +32,9 @@ console.log(firstName);  // Symbol(first name)
 
 ​		Symbol 的描述被存储在内部的[[Description]]属性中，只有当调用Symbol的toStrung方法时才可以读取这个属性。在执行 console.log 时隐式调用了 firstName 的 toString 方法，所以它的描述会被打印到日志中，但不能直接在代码里访问[[Description]]。
 
-​		推荐：通过其它间接方式也可以检测变量是否为 Symbol 类型，但是 typeof 操作符是最准确也是最应首选的检测方式。
+::: tip 推荐
+通过其它间接方式也可以检测变量是否为 Symbol 类型，但是 typeof 操作符是最准确也是最应首选的检测方式。
+:::
 
 ​		所有使用可计算属性名的地方，都可以使用 Symbol。
 
@@ -87,18 +90,18 @@ console.log(Object.getOwnPropertySymbols(person));  // [Symbol(uid)]
 
 ​		ES6开放了以前JavaScript中常见的内部操作，并通过预定义一些 well-know Symbol 来表示。每一个这类 Symbol 都是 Symbol 对象的一个属性。
 
-+ Symbol.hasInstance 一个在执行 instanceof 时调用的内部方法，用于检测对象的继承信息。
-+ Symbol.isConcatSpreadable 一个布尔值，用于表示当传递一个集合作为 Array.prototype.concat 方法的参数时，是否应该将集合内的元素规整到同一层级。
-+ Symbol.iterator 一个返回迭代器的方法
-+ Symbol.speices 用于创建派生对象的构造函数。
-+ Symbol.split 一个在调用 String.prototype.split 方法时调用的方法，用于分割字符串。
-+ Symbol.toPrimitive 一个返回对象原始值的方法。
-+ Symbol.toStringTag 一个在调用 Object.prototype.toString 方法时使用的字符串，用于创建对象描述
-+ Symbol.unscopables 一个定义了一些不可被 with 语句引用的对象属性名称的集合
++ **Symbol.hasInstance** 一个在执行 instanceof 时调用的内部方法，用于检测对象的继承信息。
++ **Symbol.isConcatSpreadable** 一个布尔值，用于表示当传递一个集合作为 Array.prototype.concat 方法的参数时，是否应该将集合内的元素规整到同一层级。
++ **Symbol.iterator** 一个返回迭代器的方法
++ **Symbol.speices** 用于创建派生对象的构造函数。
++ **Symbol.split** 一个在调用 String.prototype.split 方法时调用的方法，用于分割字符串。
++ **Symbol.toPrimitive** 一个返回对象原始值的方法。
++ **Symbol.toStringTag** 一个在调用 Object.prototype.toString 方法时使用的字符串，用于创建对象描述
++ **Symbol.unscopables** 一个定义了一些不可被 with 语句引用的对象属性名称的集合
 
 #### 4.1 Symbol.hasInstance
 
-​		每一个函数中都有一个Symbol.hasInstance方法，用于确定对象是否为函数实例。该方法在 Function.prototype 中定义，所以所有函数都继承了 instanceof 属性的默认行为，该方法被定义为**不可写，不可配置并且不可枚举**。本质上，ES6 只是将 instanceof操作符重新定义为此方法的简写语法。
+​		每一个函数中都有一个**Symbol.hasInstance**方法，用于确定对象是否为函数实例。该方法在 **Function.prototype** 中定义，所以所有函数都继承了 instanceof 属性的默认行为，该方法被定义为**不可写，不可配置并且不可枚举**。本质上，ES6 只是将 instanceof操作符重新定义为此方法的简写语法。
 
 ```js
 obj instanceof Array;
@@ -106,7 +109,9 @@ obj instanceof Array;
 Array[Symbol.hasInstance](obj);
 ```
 
+::: warning 提示
 只有通过 Object.defineProperty 方法才能够改写一个不可写属性。
+:::
 
 ```js
 // 假设想定义一个无实例的函数，就可以将Symbol.hansInstance 返回值硬编码为 false.
@@ -143,7 +148,9 @@ console.log(two instanceof SpecialNumber);  // true
 console.log(zero instanceof SpecialNumber);  // false
 ```
 
-​		注意，如果要触发Symbol.hasInstance调用，instanceof 的左操作数必须是一个对象，如果左操作数为非对象会导致 instanceof总是返回 false。
+::: warning 注意
+​如果要触发Symbol.hasInstance调用，instanceof 的左操作数必须是一个对象，如果左操作数为非对象会导致 instanceof总是返回 false。
+:::
 
 #### 4.2 Symbol.isConcatSpreadable 属性
 
@@ -193,7 +200,7 @@ console.log(msg);  // ['Hello JavaScript', {...collection}]
 
 ​		Symbol.toPrimitive 方法被定义在每一个标准类型的原型上，并且规定了当对象被转换为原始值时应当执行的操作。当执行原始值转换时，总会调用 Symbol.toPrimitive 方法并传入一个值作为参数，这个值在规范中被称为类型提示(hint)。类型提示参数的值只有三种选择：number  string  default；传递这些参数时，Symbol.toPrimitive 返回的分别是 数字 字符串或无类型偏好的值。
 
-​		对于大多数标准对象，**数字模式**有以下特性，根据优先级的顺序排列如下：
+​       对于大多数标准对象，**数字模式**有以下特性，根据优先级的顺序排列如下：
 
 1. 调用 valueOf 方法，如果结果为初始值，则返回。
 
@@ -201,15 +208,15 @@ console.log(msg);  // ['Hello JavaScript', {...collection}]
 
 3. 如果再无可选值，则抛出错误。
 
-   对于大多数标准对象，**字符串模式**有以下优先级排序：
+对于大多数标准对象，**字符串模式**有以下优先级排序：
 
-4. 调用 toString 方法，如果结果为原始值，则返回
+1. 调用 toString 方法，如果结果为原始值，则返回
 
-5. 否则调用 valueOf 方法，如果结果为原始值，则返回
+2. 否则调用 valueOf 方法，如果结果为原始值，则返回
 
-6. 如果再无可选值，则抛出错误
+3. 如果再无可选值，则抛出错误
 
-​        大多数情况下，标准对象会将**默认模式**按数字模式处理(除了Date对象，在这种情况下，会将默认模式按字符串模式处理)。
+​        大多数情况下，标准对象会将**默认模式**按**数字模式**处理(除了Date对象，在这种情况下，会将默认模式按字符串模式处理)。
 
 ​		如果想要覆写默认的转换特性，可以自定义 Symbol.toPrimitive 方法。
 

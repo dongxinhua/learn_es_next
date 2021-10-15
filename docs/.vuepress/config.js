@@ -14,6 +14,7 @@ module.exports = {
             'chapter1/string',
             'chapter1/function',
             'chapter1/object',
+            'chapter1/symbol'
           ],
         },
       ],

@@ -1,6 +1,6 @@
-## 对象
+# 对象
 
-### 1 对象方法的简写语法
+## 1 对象方法的简写语法
 
 ```js
 let person = {
@@ -13,7 +13,7 @@ let person = {
 
 ​		简写方法可以使用 super 关键字， 非简写方法不可以。
 
-### 2 可计算属性名
+## 2 可计算属性名
 
 ​		在ES6中，可在对象字面量中使用可计算属性名称。
 
@@ -46,9 +46,9 @@ console.log(person['last name']);  // xinhua
 
 ​		任何可用于对象实例括号记法的属性名，也可以作为字面量中的计算属性名。
 
-### 3 新增方法
+## 3 新增方法
 
-#### 3.1 Object.is 方法
+### 3.1 Object.is 方法
 
 ​		开发中，当比较两个值时，我们喜欢使用 === ，避免在比较时触发强制类型转换。但是，对于：NaN === NaN 的返回值是 false，需要使用 isNaN 才可以正确检测 NaN，对于 +0 和 -0 二者竟然会是相等，但我们知道其实这是两个不同的实体！
 
@@ -71,7 +71,7 @@ console.log(Object.is(5, 5));  // true
 console.log(Object.is(5, '5'));  // false
 ```
 
-#### 3.2 Object.assign 方法
+### 3.2 Object.assign 方法
 
 ::: tip 方法
 Object.assign 方法接受一个接收对象和任意数量的源对象，最终返回接收对象。
@@ -96,7 +96,7 @@ console.log(receiver.type);  // css
 console.log(receiver.name);	 // file
 ```
 
-### 4 自有属性枚举顺序
+## 4 自有属性枚举顺序
 
 ​		ES6严格规定了对象的自有属性被枚举时返回顺序，这会影响到 Object.getOwnPropertyNames()方法及Reflect.ownKeys返回属性的方式，Object.assign 方法处理的顺序也将随之改变。
 
@@ -123,9 +123,9 @@ obj.d = 1;
 console.log(Object.getOwnPropertyNames(obj).join(''));  // '012acbd'
 ```
 
-### 5. 增强对象原型
+## 5. 增强对象原型
 
-#### 5.1 改变对象的原型
+### 5.1 改变对象的原型
 
 ​		ES5中，Object.getPrototypeOf 方法可以返回任意对象的原型。
 
@@ -158,7 +158,7 @@ friend.say();  // Woof
 console.log(Object.getPrototypeOf(friend) === dog);  // true
 ```
 
-#### 5.2 简化原型访问的Super引用
+### 5.2 简化原型访问的Super引用
 
 ​		Super 引用相当于指向对象原型的指针，必须要在使用简写方法的对象中使用，但如果在其他方法声明中使用会导致语法报错：
 

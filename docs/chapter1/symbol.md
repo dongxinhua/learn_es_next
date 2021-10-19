@@ -1,8 +1,8 @@
-## Symbol 和 Symbol 属性
+# Symbol 和 Symbol 属性
 
 ​		在 ES5 早期版本，包含5种原始类型：字符串string、数字number、布尔boolean、null、undefined； ES6 引入了第 6 种原始类型：Symbol。
 
-### 1. 创建 Symbol
+## 1. 创建 Symbol
 
 ​		可以通过全局的 Symbol 函数创建一个 Symbol，当要访问这个属性时，一定要用到最初定义的Symbol。
 
@@ -38,7 +38,7 @@ console.log(firstName);  // Symbol(first name)
 
 ​		所有使用可计算属性名的地方，都可以使用 Symbol。
 
-### 2. Symbol共享体系
+## 2. Symbol共享体系
 
 ​		如果想创建一个可共享的Symbol，要使用Symbol.for方法。它只接受一个参数，也就是即将创建的Symbol的字符串标识符：
 
@@ -70,7 +70,7 @@ console.log(object[uid2]);  // '12345'
 console.log(uid2);  // Symbol(uid)
 ```
 
-### 3. Symbol 属性检索
+## 3. Symbol 属性检索
 
 ​		Object.keys 方法和 Object.getOwnPropertyNames 方法可以检索对象中所有的属性名：前一个方法返回所有可枚举的属性名；后一个方法不考虑属性的可枚举性一律返回，但是它们都不支持Symbol属性。
 
@@ -86,7 +86,7 @@ person.name = 'coderdxh';
 console.log(Object.getOwnPropertySymbols(person));  // [Symbol(uid)]
 ```
 
-### 4. 通过well-known Symbol 暴露内部操作
+## 4. 通过well-known Symbol 暴露内部操作
 
 ​		ES6开放了以前JavaScript中常见的内部操作，并通过预定义一些 well-know Symbol 来表示。每一个这类 Symbol 都是 Symbol 对象的一个属性。
 
@@ -99,7 +99,7 @@ console.log(Object.getOwnPropertySymbols(person));  // [Symbol(uid)]
 + **Symbol.toStringTag** 一个在调用 Object.prototype.toString 方法时使用的字符串，用于创建对象描述
 + **Symbol.unscopables** 一个定义了一些不可被 with 语句引用的对象属性名称的集合
 
-#### 4.1 Symbol.hasInstance
+### 4.1 Symbol.hasInstance
 
 ​		每一个函数中都有一个**Symbol.hasInstance**方法，用于确定对象是否为函数实例。该方法在 **Function.prototype** 中定义，所以所有函数都继承了 instanceof 属性的默认行为，该方法被定义为**不可写，不可配置并且不可枚举**。本质上，ES6 只是将 instanceof操作符重新定义为此方法的简写语法。
 
@@ -152,7 +152,7 @@ console.log(zero instanceof SpecialNumber);  // false
 ​如果要触发Symbol.hasInstance调用，instanceof 的左操作数必须是一个对象，如果左操作数为非对象会导致 instanceof总是返回 false。
 :::
 
-#### 4.2 Symbol.isConcatSpreadable 属性
+### 4.2 Symbol.isConcatSpreadable 属性
 
 ​		JavaScript中数组的 concat 方法被设计用于拼接两个数组，使用方法:
 

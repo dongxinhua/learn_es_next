@@ -15,7 +15,14 @@ module.exports = {
             'chapter1/function',
             'chapter1/object',
             'chapter1/symbol',
-            'chapter1/set-map'
+            'chapter1/set-map',
+          ],
+        },
+        {
+          title: '提升', // 标题
+          collapsable: false, // 下级列表不可折叠
+          children: [ // 下级列表
+            'chapter2/iterator',
           ],
         },
       ],
